@@ -1,6 +1,6 @@
+import controller.ControlerMainFrame;
 import model.ModelMainFrame;
 import view.ViewMainFrame;
-import controler.ControlerMainFrame;
 
 public class Main {
 
