@@ -70,7 +70,7 @@ public class Body implements Updatable{
 
 		if(other.getLeft() < getLeft() && getLeft() < other.getRight() && other.getRight() < getRight()){
 		    if(getLeft() - other.getRight() < depth) {
-		    	depth = getLeft() - other.getRight();
+		    	depth = other.getRight() - getLeft();
 		    	this.collideSize = COLLIDE_LEFT;
 		    }
 		}

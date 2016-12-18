@@ -40,7 +40,7 @@ public class LevelState implements IGameState{
 
 	private void randomPigPosition(ISprite sprite) {
 		pigSprite.getBody().getPosition().setX((float) (Math.random() * 500 + 200));
-		pigSprite.getBody().getPosition().setY(480);
+		pigSprite.getBody().getPosition().setY(0);
 	}
 	
 	@Override
