@@ -5,7 +5,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import lib.GameObject.IGameObject;
 import lib.engine.Game;
 import state.IGameState;
 import state.LevelState;
@@ -54,9 +53,6 @@ public class Application extends Game implements MouseListener, MouseMotionListe
 	public void setGameState(IGameState gs) {
 		this.gamestate = gs;
 	}
-	
-	public static void main(String[] args) {
-	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
@@ -92,5 +88,7 @@ public class Application extends Game implements MouseListener, MouseMotionListe
 	public void mouseReleased(MouseEvent e) {
 		gamestate.mouseReleased(e);
 	}
+	
+	public static void main(String[] args) { }
 	
 }

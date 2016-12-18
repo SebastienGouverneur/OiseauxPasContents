@@ -3,7 +3,6 @@ package lib.GameObject.impl;
 import java.awt.Graphics;
 import java.util.HashMap;
 
-import lib.GameObject.IGameObject;
 import lib.GameObject.ISprite;
 import lib.physics.Body;
 import lib.render.Animation;
@@ -20,12 +19,14 @@ public class Sprite implements ISprite{
 		updateAnim(delta);
 	}
 	
+	@Override
 	public Animation createAnimation(String name) {
 		Animation anim = new Animation(this.body.getPosition(), this.body.getSize());
 		animations.put(name, anim);
 		return anim;
 	}
 	
+	@Override
 	public void setAnimation(String anim, boolean play, int frame) {
 		this.currentAnim = anim;
 		

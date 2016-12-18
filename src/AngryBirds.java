@@ -30,11 +30,16 @@ public class AngryBirds extends Panel implements Runnable, MouseListener, MouseM
     }
 
     // gestion des événements souris
-    public void mouseClicked(MouseEvent e) { }
-    public void mouseEntered(MouseEvent e) { }
-    public void mouseExited(MouseEvent e) { }
-    public void mousePressed(MouseEvent e) { }
-    public void mouseReleased(MouseEvent e) {
+    @Override
+	public void mouseClicked(MouseEvent e) { }
+    @Override
+	public void mouseEntered(MouseEvent e) { }
+    @Override
+	public void mouseExited(MouseEvent e) { }
+    @Override
+	public void mousePressed(MouseEvent e) { }
+    @Override
+	public void mouseReleased(MouseEvent e) {
         if(gameOver) {
             init();
         } else if(selecting) {
@@ -45,8 +50,10 @@ public class AngryBirds extends Panel implements Runnable, MouseListener, MouseM
         }
         repaint();
     }
-    public void mouseDragged(MouseEvent e) { mouseMoved(e); }
-    public void mouseMoved(MouseEvent e) { 
+    @Override
+	public void mouseDragged(MouseEvent e) { mouseMoved(e); }
+    @Override
+	public void mouseMoved(MouseEvent e) { 
         mouseX = e.getX();
         mouseY = e.getY();
         repaint();
@@ -73,10 +80,12 @@ public class AngryBirds extends Panel implements Runnable, MouseListener, MouseM
     }
 
     // boucle qui calcule la position de l'oiseau en vol, effectue l'affichage et teste les conditions de victoire
-    public void run() {
+    @Override
+	public void run() {
         while(true) {
             // un pas de simulation toutes les 10ms
-            try { Thread.currentThread().sleep(10); } catch(InterruptedException e) { }
+            try { Thread.currentThread();
+			Thread.sleep(10); } catch(InterruptedException e) { }
 
             if(!gameOver && !selecting) {
 
@@ -102,12 +111,14 @@ public class AngryBirds extends Panel implements Runnable, MouseListener, MouseM
     }
 
     // évite les scintillements
-    public void update(Graphics g) {
+    @Override
+	public void update(Graphics g) {
         paint(g);
     }
 
     // dessine le contenu de l'écran dans un buffer puis copie le buffer à l'écran
-    public void paint(Graphics g2) {
+    @Override
+	public void paint(Graphics g2) {
         if(buffer == null) buffer = createImage(800, 600);
         Graphics2D g = (Graphics2D) buffer.getGraphics();
 
@@ -139,7 +150,8 @@ public class AngryBirds extends Panel implements Runnable, MouseListener, MouseM
     }
 
     // taille de la fenêtre
-    public Dimension getPreferredSize() {
+    @Override
+	public Dimension getPreferredSize() {
         return new Dimension(800, 600);
     }
 
@@ -148,7 +160,8 @@ public class AngryBirds extends Panel implements Runnable, MouseListener, MouseM
         Frame frame = new Frame("Oiseau pas content");
         final AngryBirds obj = new AngryBirds();
         frame.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent event) {
+            @Override
+			public void windowClosing(WindowEvent event) {
                 System.exit(0);
             }
         });
