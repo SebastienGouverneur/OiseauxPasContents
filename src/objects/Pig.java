@@ -14,5 +14,6 @@ public class Pig extends Sprite{
 		setAnimation("idle", false, 0);
 		getBody().getSize().setX(40);
 		getBody().getSize().setY(40);
+		getBody().getAcceleration().setY(98);
 	}
 }

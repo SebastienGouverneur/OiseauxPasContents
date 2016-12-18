@@ -2,9 +2,12 @@ package state;
 
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 import lib.GameObject.ISprite;
 import lib.physics.Vector2d;
 import objects.Bird;
+import objects.Group;
 import objects.Launcher;
 import objects.Pig;
 import objects.Wall;
@@ -15,33 +18,39 @@ public class LevelState implements IGameState{
 	private ISprite pigSprite;
 	private ISprite wall;
 	
+	private Group pigs = new Group();
+	private Group birds = new Group();
+	private Group walls = new Group();
+	
+	private ArrayList<ISprite> sprites = new ArrayList<>();
+	
 	private Launcher launcher;
 	
 	private final Vector2d mouse = new Vector2d();
 	
 	@Override
 	public void update(float delta) {
-		angrySprite.update(delta);
-		pigSprite.update(delta);
+		birds.update(delta);
+		pigs.update(delta);
+		walls.update(delta);
 		
-		angrySprite.getBody().doCollide(pigSprite.getBody());
-		angrySprite.getBody().doCollide(wall.getBody());
+		birds.collide(walls);
+		
+		pigs.collide(walls);
+		birds.collide(pigs);
+		
+		pigs.collide(pigs);
 	}
 
 	@Override
 	public void draw(Graphics g) {
-		wall.draw(g);
-		angrySprite.draw(g);
-		pigSprite.draw(g);
-		
+		birds.draw(g);
+		pigs.draw(g);
+		walls.draw(g);
 		launcher.draw(g);
 		
 	}
 
-	private void randomPigPosition(ISprite sprite) {
-		pigSprite.getBody().getPosition().setX((float) (Math.random() * 500 + 200));
-		pigSprite.getBody().getPosition().setY(0);
-	}
 	
 	@Override
 	public void init() {
@@ -50,11 +59,31 @@ public class LevelState implements IGameState{
 		
 		pigSprite = new Pig();
 		pigSprite.init();
-		randomPigPosition(pigSprite);
+		pigSprite.getBody().getPosition().setX(550);
+		pigSprite.getBody().getPosition().setY(150);
+		pigs.addObject(pigSprite);
+		
+		pigSprite = new Pig();
+		pigSprite.init();
+		pigSprite.getBody().getPosition().setX(400);
+		pigSprite.getBody().getPosition().setY(400);
+		pigs.addObject(pigSprite);
+		
+		pigSprite = new Pig();
+		pigSprite.init();
+		pigSprite.getBody().getPosition().setX(750);
+		pigSprite.getBody().getPosition().setY(500);
+		pigs.addObject(pigSprite);
 		
 		launcher = new Launcher(mouse, angrySprite);
 		
-		wall = new Wall(200, 500, 400, 100);
+		
+		birds.addObject(angrySprite);
+		
+		walls.addObject(new Wall(0, 500, 800, 100));
+		walls.addObject(new Wall(400, 400, 200, 200));
+		walls.addObject(new Wall(550, 200, 100, 20));
+		walls.addObject(new Wall(550, 220, 20, 200));
 	}
 
 	@Override

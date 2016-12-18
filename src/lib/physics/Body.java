@@ -5,6 +5,8 @@ public class Body implements Updatable{
 	private final Vector2d velocity = new Vector2d();
 	private final Vector2d acceleration = new Vector2d();
 	
+	private boolean immovable = false;
+	
 	public static final int COLLIDE_UP = 0;
 	public static final int COLLIDE_LEFT = 1;
 	public static final int COLLIDE_RIGHT = 2;
@@ -44,6 +46,18 @@ public class Body implements Updatable{
 	
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	
+	/**
+	 * 
+	 * @param immovable if false object cannot be moved by collisions
+	 */
+	public void setImmovable(boolean immovable) {
+		this.immovable = immovable;
+	}
+	
+	public boolean isImmovable() {
+		return immovable;
 	}
 	
 	/**
@@ -116,18 +130,30 @@ public class Body implements Updatable{
 			if(this.collideSize == COLLIDE_RIGHT) {
 				this.position.setX(other.position.getX() - this.size.getX());
 				this.velocity.setX(-this.velocity.getX()/2);
+				if(!other.isImmovable()) {
+					other.velocity.setX(other.velocity.getX() - this.velocity.getX()/2);
+				}
 			}
 			else if(this.collideSize == COLLIDE_LEFT) {
 				this.position.setX(other.getRight());
 				this.velocity.setX(-this.velocity.getX()/2);
+				if(!other.isImmovable()) {
+					other.velocity.setX(other.velocity.getX() - this.velocity.getX()/2);
+				}
 			}
 			else if(this.collideSize == COLLIDE_UP) {
 				this.position.setY(other.getBottom());
 				this.velocity.setY(-this.velocity.getY()/2);
+				if(!other.isImmovable()) {
+					other.velocity.setY(other.velocity.getY() - this.velocity.getY()/2);
+				}
 			}
 			else {
 				this.position.setY(other.getTop() - size.getY());
 				this.velocity.setY(-this.velocity.getY()/2);
+				if(!other.isImmovable()) {
+					other.velocity.setY(other.velocity.getY() - this.velocity.getY()/2);
+				}
 			}
 			
 		}
